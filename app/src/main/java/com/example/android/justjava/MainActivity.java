@@ -13,6 +13,8 @@ package com.example.android.justjava;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +37,19 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         display(numberOfCoffees);
-        displayMessage("Total: $"+  5*numberOfCoffees + "\n Thank You!");
+        EditText nameField=findViewById(R.id.name_field);
+        String name=nameField.getText().toString();
+
+        CheckBox addChocolate= findViewById(R.id.chocolateCheckBox);
+        boolean hasChocolate=addChocolate.isChecked();
+
+        CheckBox addCream= findViewById(R.id.whippedCreamCheckBox);
+        boolean hasCream=addCream.isChecked();
+
+        int price = numberOfCoffees*5;
+
+        String priceMessage=createOrderSummary(name, price, hasChocolate, hasCream);
+        displayMessage(priceMessage);
     }
 
     /**
@@ -69,5 +83,14 @@ public class MainActivity extends AppCompatActivity {
     private void displayMessage(String message){
         TextView priceTextView= findViewById(R.id.price_text_view);
         priceTextView.setText(message);
+    }
+    private String createOrderSummary(String name, int price, boolean hasChocolate, boolean hasCream){
+        String priceMeassage = "NAME: "+name;
+        priceMeassage+="\nAdd Whipped Cream? "+ hasCream;
+        priceMeassage+="\nAdd chocolate? "+hasChocolate;
+        priceMeassage+="\nQuantity: "+numberOfCoffees;
+        priceMeassage+="\nTotal: "+ price;
+        priceMeassage+="\nthanks!";
+        return priceMeassage;
     }
 }

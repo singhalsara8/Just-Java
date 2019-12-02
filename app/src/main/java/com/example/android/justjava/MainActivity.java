@@ -10,13 +10,12 @@ package com.example.android.justjava;
 
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.NumberFormat;
 
 /**
  * This app displays an order form to order coffee.
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         display(numberOfCoffees);
-        displayPrice(numberOfCoffees*5);
+        displayMessage("Total: $"+  5*numberOfCoffees + "\n Thank You!");
     }
 
     /**
@@ -58,12 +57,17 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given quantity value on the screen.
      */
+    @SuppressLint("SetTextI18n")
     private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        TextView quantityTextView = findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
-    private void displayPrice(int number){
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+   /* private void displayPrice(int number){
+        TextView priceTextView = findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    }*/
+    private void displayMessage(String message){
+        TextView priceTextView= findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
     }
 }
